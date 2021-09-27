@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
 
-  // Read the source file, TO-DO: Let user specify filename
+  // Read the source file 
   //https://stackoverflow.com/questions/2912520/read-file-contents-into-a-string-in-c
   std::ifstream ifs(argv[1]);
   std::string code( (std::istreambuf_iterator<char>(ifs) ),
@@ -66,7 +66,9 @@ int main(int argc, char *argv[]) {
 
       // ,
       case 44:
-        //std::cout << getchar();
+        std::cout << "\n";
+        *p = getchar();
+        getchar();
         break;
 
       // [
