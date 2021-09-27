@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
 
   // Read the source file, TO-DO: Let user specify filename
   //https://stackoverflow.com/questions/2912520/read-file-contents-into-a-string-in-c
-  std::ifstream ifs("tests/outputtest.b");
+  std::ifstream ifs("tests/5spades.b");
   std::string code( (std::istreambuf_iterator<char>(ifs) ),
                        (std::istreambuf_iterator<char>()    ) );
   //std::cout << content;
@@ -48,21 +48,32 @@ int main(int argc, char *argv[]) {
 
       // +
       case 43:
-        *p += 1;
+        if (*p >= 255) {
+          *p = 0;
+        }
+        else {
+          *p += 1;
+        }
         //printf("plus\n");
         break;
 
       // -
       case 45:
-        *p -= 1;
+        if (*p <= 0) {
+          *p = 255;
+        }
+        else {
+          *p -= 1;
+        }
         //printf("minus\n");
         break;
 
       // .
       case 46:
-        putchar(*p);
-        printf("\n");
+        //putchar(*p);
+        //printf("\n");
         //printf("print: %d\n", *p);
+        std::cout << (char) *p;
         break;
 
       // ,
@@ -72,16 +83,44 @@ int main(int argc, char *argv[]) {
 
       // [
       case 91:
+        if (*p == 0){
+          int counter = 1;
+          while (counter > 0) {
+            //std::cout << "counter [ " << counter;
+            inpptr++;
+            if (*inpptr == '[')
+              counter++;
+            else if (*inpptr == ']')
+              counter--;
+          }
+        }
         break;
 
       // ]
       case 93:
+        if (*p != 0){
+          int counter = 1;
+          while (counter > 0){
+            //std::cout << "counter ] " << counter << " " /*<< *p << " "*/ << *inpptr << "\n";
+            inpptr--;
+            if (*inpptr == ']') {
+              //std::cout << "increasing counter";
+              counter++;
+            }
+            else if (*inpptr == '[') {
+              //std::cout << "decreasing counter";
+              counter--;
+            }
+          }
+        }
         break;
     }
+    //std::cout << "cells: " << arr[0] << " " << arr [1] << " " << arr[2] << " char: " << *inpptr << "\n";
 
     inpptr++;
   }
 
   //std::cout << "current address: " << p << "\n";
+  std::cout << "\n";
   return 0;
 }
